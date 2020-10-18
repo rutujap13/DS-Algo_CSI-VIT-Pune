@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<time.h>
+
+int memtable[100];
+
+void _initialize()
+{
+int i;
+for (i = 0; i < 100; i++)
+	memtable[i] = -1;
+}
+
+/* function in dp */
+int fibdp(int n)
+{
+if (memtable[n] == -1)
+{
+	if (n <= 1)
+		memtable[n] = n;
+	else
+		memtable[n] = fibdp(n-1) + fibdp(n-2);
+}
+
+return memtable[n];
+}
+
+//////////////////////////////////////////////
+int fibr(int n) //Fibonacci Series using Recursion
+
+{
+if (n <= 1)
+	return n;
+return fibr(n-1) + fibr(n-2);
+}
+
+
+
+int main ()
+{
+int n = 40 ;
+
+clock_t begin1, end1,begin2, end2;
+
+double time_spent1,time_spent2;
+
+begin1 = clock();
+
+printf("for n=%d fibonacci no. is %d\n",n, fibr(n));
+
+
+end1 = clock();
+
+time_spent1 = (double)(end1 - begin1) / CLOCKS_PER_SEC;
+
+printf("\nTime Taken in fib recursion is:%lf\n ", time_spent1);
+//////////////////////////////////////////////////////////////
+
+_initialize();
+
+begin2 = clock();
+
+fibdp(n);
+//printf("Fibonacci number in dp is %d \n", fibdp(n));
+
+end2 = clock();
+
+time_spent2 = (double)(end2 - begin2) / CLOCKS_PER_SEC;
+
+printf("\nTime Taken in dp :%lf", time_spent2);
+
+getchar();
+return 0;
+}
